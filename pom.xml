@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.gde.microservices</groupId>
+  <artifactId>microshop</artifactId>
+  <version>1.0</version>
+  <packaging>pom</packaging>
+  <name>microshop</name>
+  
+  <properties>
+    <appengine.app.version>1</appengine.app.version>
+    <appengine.target.version>1.9.30</appengine.target.version>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+  <modules>
+    <module>microshop-ear</module>
+    <module>catalog</module>
+    <module>cart</module>
+    <module>order</module>
+  </modules>
+</project>
