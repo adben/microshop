@@ -14,3 +14,9 @@ out
 /cart/target/
 /microshop-ear/target/
 /order/target/
+/cart/cart.iml
+/catalog/target/
+/catalog/catalog.iml
+/microshop-ear/microshop-ear.iml
+/order/order.iml
+/microshop.iml

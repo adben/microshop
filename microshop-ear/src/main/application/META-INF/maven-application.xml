@@ -13,5 +13,11 @@
       <context-root>/catalog</context-root>
     </web>
   </module>
+  <module>
+    <web>
+      <web-uri>order-1.0.war</web-uri>
+      <context-root>/order</context-root>
+    </web>
+  </module>
   <library-directory>lib</library-directory>
 </application>

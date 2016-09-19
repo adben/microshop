@@ -3,6 +3,8 @@
   <application>order</application>
   <version>1</version>
   <threadsafe>true</threadsafe>
+
+  <module>order</module>
     
   <!-- 
        We do not specify the module name so this is the default module.
