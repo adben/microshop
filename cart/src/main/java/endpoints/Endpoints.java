@@ -16,15 +16,31 @@ import javax.ws.rs.core.MediaType;
 @Path("/cart")
 public class Endpoints {
 
+    String user = "ggg";
+
     @GET
     @Path("/items")
     @Produces(MediaType.APPLICATION_JSON)
     public Cart list(@Context HttpHeaders hh){
         Cart toReturn = null;
 
-        Cart cart = CartDao.get("###");
+        Cart cart = CartDao.get(user);
 
         if(cart != null){ toReturn = cart; }
+
+        return toReturn;
+    }
+
+    @GET
+    @Path("/{user}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Cart add(@PathParam("user") String user){
+        Cart toReturn = null;
+
+        if(user != null){
+            Cart cart = CartDao.get(user);
+            if(cart != null){ toReturn = cart; }
+        }
 
         return toReturn;
     }
@@ -35,7 +51,7 @@ public class Endpoints {
     public Cart add(@PathParam("id") Long id, @Context HttpHeaders hh){
         Cart toReturn = null;
 
-        Cart cart = CartManager.addToCart(hh, "###", id);
+        Cart cart = CartManager.addToCart(hh, user, id);
 
         if(cart != null){ toReturn = cart; }
 
@@ -48,7 +64,7 @@ public class Endpoints {
     public Cart remove(@PathParam("id") Long id, @Context HttpHeaders hh){
         Cart toReturn = null;
 
-        Cart cart = CartManager.removeFromCart(hh, "###", id);
+        Cart cart = CartManager.removeFromCart(hh, user, id);
 
         if(cart != null){ toReturn = cart; }
 
@@ -61,9 +77,25 @@ public class Endpoints {
     public Cart remove(){
         Cart toReturn = null;
 
-        Cart cart = CartManager.clearCart("###");
+        Cart cart = CartManager.clearCart(user);
 
         if(cart != null){ toReturn = cart; }
+
+        return toReturn;
+    }
+
+    @DELETE
+    @Path("/clear/{user}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Cart remove(@PathParam("user") String user){
+        Cart toReturn = null;
+
+        if(user != null){
+            Cart cart = CartManager.clearCart(user);
+            if(cart != null){
+                toReturn = cart;
+            }
+        }
 
         return toReturn;
     }

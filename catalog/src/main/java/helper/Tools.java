@@ -1,6 +1,6 @@
 package helper;
 
-import com.google.appengine.repackaged.com.google.gson.Gson;
+import com.google.gson.Gson;
 
 /**
  * Created by Apeser on 18.09.2016.
