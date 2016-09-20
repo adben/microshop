@@ -3,14 +3,20 @@
   <display-name>microshop-ear</display-name>
   <module>
     <web>
-      <web-uri>cart-1.0.war</web-uri>
-      <context-root>/cart</context-root>
+      <web-uri>proxy-1.0.war</web-uri>
+      <context-root>/proxy</context-root>
     </web>
   </module>
   <module>
     <web>
       <web-uri>catalog-1.0.war</web-uri>
       <context-root>/catalog</context-root>
+    </web>
+  </module>
+  <module>
+    <web>
+      <web-uri>cart-1.0.war</web-uri>
+      <context-root>/cart</context-root>
     </web>
   </module>
   <module>

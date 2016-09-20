@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Microshop</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/animate.css/3.2.3/animate.min.css">
+
+    <link href='https://fonts.googleapis.com/css?family=Lato:400,100,100italic,300,300italic,400italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.0.0/jquery.min.js" integrity="sha384-THPy051/pYDQGanwU6poAc/hOdQxjnOEXzbT+OuUAFqNqFjL+4IGLBgCJC3ZOShY" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.2.0/js/tether.min.js" integrity="sha384-Plbmg8JY28KFelvJVai01l8WyZzrYWG825m+cZ0eDDS1f7d/js6ikvy1+X+guPIB" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.4/js/bootstrap.min.js" integrity="sha384-VjEeINv9OSwtWFLAtmc4JCtEJXXBub00gtSnszmspDLCtC0I4z4nqz7rEFbIZLLU" crossorigin="anonymous"></script>
+    <style>
+
+
+     .navbar-default .navbar-nav>li>a:hover,
+     .navbar-default .navbar-nav>li>a:focus {
+                color: #869D0F;
+       }
+
+            .navbar-default .navbar-nav>li>a:visited,
+            .navbar-default .navbar-nav>li>a {
+                color: white;
+            }
+
+	.flex-row {
+	display: flex;
+	flex-wrap: wrap;
+}
+.flex-row > [class*='col-'] {
+	display: flex;
+	flex-direction: column;
+}
+
+.flex-row .thumbnail,
+.flex-row .caption {
+	flex-direction: column;
+	display: flex;
+	flex: 1 0 auto;
+	height: 300px;
+	position: relative;
+}
+.flex-text {
+	flex-grow: 0;
+	width: 100%;
+	font-size:11px;
+}
+.flex-row img {
+	min-width: 0;
+	width: 50%;
+}
+
+
+.caption{text-align:center}
+
+@media only screen and (max-width : 480px){
+	.flex-row > [class*='col-'] {
+			width: 100%;
+	}
+	.flex-row  {
+    padding-left: 0px;
+    padding-right: 0px;
+  }
+  .flex-row img {
+	min-width: 0;
+	width: 50%;
+}
+
+.flex-row .thumbnail{
+	flex-direction: column;
+	display: flex;
+	flex: 1 0 auto;
+	height: 400px;
+	position: relative;
+}
+
+}
+
+@media only screen and (max-width : 320px){
+	.flex-row > [class*='col-'] {
+			width: 100%;
+	}
+	.flex-row  {
+    padding-left: 0px;
+    padding-right: 0px;
+  }
+  .flex-row img {
+	min-width: 0;
+	width: 50%;
+}
+
+.flex-row .thumbnail{
+	flex-direction: column;
+	display: flex;
+	flex: 1 0 auto;
+	height: 300px;
+	position: relative;
+}
+
+}
+
+	</style>
+
+</head>
+<body>
+
+<nav class="nav navbar navbar-default navbar-fixed-top" style="background:#008542">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a tabindex="1" class="navbar-brand" href="#" style="letter-spacing:-1px;font-size:22px;color:white;">MICROSHOP</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="#who">Orders</a></li>
+                <li><a href="#what">Cart</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="container" style="margin-top:50px">
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">Best Fruits of the world
+                <br><small class="text-info">Healthy food at your fingertip</small>
+            </h1>
+        </div>
+    </div>
+    <!-- /.row -->
+</div>
+<br>
+
+<div class="container">
+    <div id="catalog" class="flex-row row">
+        ###CATALOG###
+    </div>
+    <!-- /.flex-row  -->
+</div>
+<!-- /.container  -->
+
+
+
+<footer style="width:100%;position:fixed;bottom:0px;padding: 10px; border-top: 1px solid #eee; margin-top: 25px;background:#008542">
+    <div class="container">
+        <div class="text-muted text-center" style="color:white;">
+            Microservices in GAE
+        </div>
+    </div>
+</footer>
+
+<script type="text/javascript">
+
+</script>
+
+</body>
+
+</html>

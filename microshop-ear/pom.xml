@@ -47,6 +47,12 @@
   <dependencies>
     <dependency>
       <groupId>com.gde.microservices</groupId>
+      <artifactId>proxy</artifactId>
+      <version>1.0</version>
+      <type>war</type>
+    </dependency>
+    <dependency>
+      <groupId>com.gde.microservices</groupId>
       <artifactId>cart</artifactId>
       <version>1.0</version>
       <type>war</type>

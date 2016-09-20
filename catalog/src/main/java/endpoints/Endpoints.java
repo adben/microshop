@@ -49,26 +49,4 @@ public class Endpoints {
         return toReturn;
     }
 
-    @GET
-    @Path("/item/{id}/html")
-    @Produces(MediaType.TEXT_HTML)
-    public String itemAsHtml(@PathParam("id") Long id){
-        String toReturn = "<!DOCTYPE html><html><body>";
-
-        Item item = CatalogDoa.get(id);
-
-        if(item != null){
-            toReturn = toReturn
-                    + "<img src='" + item.getImg() + "'>" + "<br/>"
-                    + "<b>Title: </b>" + item.getTitle() + "<br/>"
-                    + "<b>Description: </b>" + item.getDescription() + "<br/>"
-                    + "<b>Price: </b>" + item.getPrice() + "&#x20AC; <br/>"
-                    + "<b>Stock: </b>" + item.getStock();
-
-        }
-
-        toReturn = toReturn + "</body></html>";
-
-        return toReturn;
-    }
 }

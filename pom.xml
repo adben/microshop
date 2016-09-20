@@ -16,6 +16,7 @@
   </properties>
   <modules>
     <module>microshop-ear</module>
+    <module>proxy</module>
     <module>catalog</module>
     <module>cart</module>
     <module>order</module>

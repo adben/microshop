@@ -9,7 +9,7 @@ public class Item {
     private String title;
     private String description;
     private String img;
-    private Double price;
+    private Integer price;
     private Integer stock;
 
     public Long getId() {
@@ -44,11 +44,11 @@ public class Item {
         this.img = img;
     }
 
-    public Double getPrice() {
+    public Integer getPrice() {
         return price;
     }
 
-    public void setPrice(Double price) {
+    public void setPrice(Integer price) {
         this.price = price;
     }
 
