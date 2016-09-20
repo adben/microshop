@@ -1,10 +1,15 @@
 package model;
 
+import com.googlecode.objectify.annotation.Entity;
+import com.googlecode.objectify.annotation.Id;
+
 /**
  * Created by JB on 18.09.2016.
  */
+@Entity
 public class Item {
 
+    @Id
     private Long id;
     private String title;
     private String description;

@@ -1,10 +1,15 @@
 package model;
 
+import com.googlecode.objectify.annotation.Entity;
+import com.googlecode.objectify.annotation.Id;
+
 /**
  * Created by Jean-Baptiste Clion on 18.09.2016.
  */
+@Entity
 public class Order {
 
+    @Id
     private Long id;
     private String user;
     private String date;

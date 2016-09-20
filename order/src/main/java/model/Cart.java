@@ -1,13 +1,18 @@
 package model;
 
+import com.googlecode.objectify.annotation.Entity;
+import com.googlecode.objectify.annotation.Id;
+
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by Jean-Baptiste Clion on 18.09.2016.
  */
+@Entity
 public class Cart {
 
+    @Id
     private Long id;
     private String user;
     private List<Item> items;
