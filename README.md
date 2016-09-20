@@ -13,7 +13,7 @@ This application is dedicated to development & local server only
 The current microservice project is not following best practices:
 
   + Datasets are local to instances and not relying on memcache or datastore.
-  + Instances are statefuöö
+  + Instances are statefull
 
 Update the the current version of this application in order to use memcache and datastore. Make sure your services are stateless.
   
