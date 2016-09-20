@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Apeser on 18.09.2016.
+ * Created by JB on 18.09.2016.
  */
 public class CatalogDoa {
 

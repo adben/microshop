@@ -13,10 +13,6 @@ import com.google.appengine.api.users.UserServiceFactory;
  */
 public class UserManager {
 
-    /**
-     * Authenticate the current application user
-     * @return The current user id if authenticated else null
-     */
     public static String getCurrentUser(){
         String toReturn = null;
 

@@ -8,7 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 
 /**
- * Created by Apeser on 18.09.2016.
+ * Created by JB on 18.09.2016.
  */
 public class OrderDao {
 
@@ -30,14 +30,14 @@ public class OrderDao {
 
         if(ORDERS != null && order!= null){
 
-            if(order.getCart() != null && order.getCart().getUser() != null){
+            if(order.getDate() != null && order.getUser() != null){
 
-                if(ORDERS.containsKey(order.getCart().getUser())){
-                    ORDERS.get(order.getCart().getUser()).add(order);
+                if(ORDERS.containsKey(order.getUser())){
+                    ORDERS.get(order.getUser()).add(order);
                 }else{
                     List<Order> orders = new ArrayList<>();
                     orders.add(order);
-                    ORDERS.put(order.getCart().getUser(), orders);
+                    ORDERS.put(order.getUser(), orders);
                 }
 
                 toReturn = order;

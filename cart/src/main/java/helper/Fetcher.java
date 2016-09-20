@@ -20,12 +20,7 @@ public class Fetcher {
 
     private static final Gson GSON = new Gson();
 
-    /**
-     * Call the microservice in charge of retrieving current datetime
-     * @param hh HTTP 200 is operation is successful else HTTP 500
-     * @return The current datetime in JSON format
-     * @throws IOException
-     */
+
     public static Item getItem(HttpHeaders hh, Long itemId) throws IOException {
         Item toReturn = null;
 
@@ -35,13 +30,6 @@ public class Fetcher {
         return toReturn;
     }
 
-    /**
-     * Build the microservice URL to call based on given parameter
-     * @param service Name of the microservice to be called
-     * @param version Version of the microservice to be called
-     * @param endpoint Endpoint on the microservice to be called
-     * @return The url of the microservice associated with the given parameters
-     */
     private static String buildServiceUrl(String service, String version, String endpoint){
 
         String toReturn = null;
@@ -55,14 +43,7 @@ public class Fetcher {
         return toReturn;
     }
 
-    /**
-     * Call the fecth service & return the associated values if required
-     * @param url Microservice URL to be called
-     * @param httpMethod Method HTTP to use in the given call
-     * @param hh The current request HTTP headers
-     * @return String result associated to the given context
-     * @throws IOException
-     */
+
     private static <T> T prefetch(String url, HTTPMethod httpMethod, HttpHeaders hh, Class<T> type) throws IOException {
         T toReturn = null;
 
@@ -73,14 +54,6 @@ public class Fetcher {
         return toReturn;
     }
 
-    /**
-     * Fetch the current url with the given method by injecting the given headers
-     * @param url Url to fetch
-     * @param method HTTP method to use
-     * @param hh The current request HTTP headers
-     * @return
-     * @throws IOException
-     */
     private static <T> T fetch(String url, HTTPMethod method, HttpHeaders hh, Class<T> type) throws IOException {
 
         T toReturn = null;

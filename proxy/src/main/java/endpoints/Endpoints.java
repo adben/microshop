@@ -2,7 +2,10 @@ package endpoints;
 
 import helper.Fetcher;
 import helper.FrontBuilder;
+import helper.UserManager;
+import model.Cart;
 import model.Item;
+import model.Order;
 import org.apache.commons.io.IOUtils;
 
 import javax.ws.rs.*;
@@ -22,7 +25,7 @@ import java.util.List;
 @Path("/")
 public class Endpoints {
 
-    String user = "ggg";
+    String user = UserManager.getCurrentUser();
 
     @GET
     @Path("/home")
@@ -50,63 +53,89 @@ public class Endpoints {
 
     }
 
-
-
-/*
-    @GET
-    @Path("/catalog")
-    @Produces(MediaType.APPLICATION_JSON)
-    public List<Item> list(){
-        List<Order> toReturn = new ArrayList<>();
-
-        if(user != null) {
-            List<Order> orders = OrderDao.get(user);
-            if(orders != null){ toReturn = orders; }
-        }
-
-        return toReturn;
-    }
-
     @GET
     @Path("/cart")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Cart cart(){
-        Cart toReturn = null;
+    @Produces(MediaType.TEXT_HTML)
+    public String getCart(@Context HttpHeaders hh){
+        String toReturn = "";
 
-        if(user != null) {
-            // Fetcher get cart
-            List<Order> orders = OrderDao.get(user);
-            if(orders != null){ toReturn = orders; }
+        if(user != null){
+            try {
+                Cart cart = Fetcher.getCart(hh, user);
+                toReturn = FrontBuilder.buildCart(cart);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
 
         return toReturn;
     }
 
-    @POST
+    @GET
+    @Path("/orders")
+    @Produces(MediaType.TEXT_HTML)
+    public String getOrders(@Context HttpHeaders hh) {
+        String toReturn = "";
+
+        if (user != null) {
+            try {
+                List<Order> orders = Fetcher.getOrders(hh, user);
+                if (orders != null) {
+                    toReturn = FrontBuilder.buildOrders(orders);
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return toReturn;
+    }
+
+    @GET
     @Path("/cart/{itemId}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Order add(@PathParam("user") String user, @Context HttpHeaders hh){
-        Order toReturn = null;
+    public void add(@PathParam("itemId") Long itemId, @Context HttpHeaders hh){
+
+        if(user != null && itemId != null){
+            try {
+                Fetcher.addToCart(hh, user, itemId);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    @GET
+    @Path("/cart/delete/{itemId}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public void delete(@PathParam("itemId") Long itemId, @Context HttpHeaders hh){
+
+        if(user != null && itemId != null){
+            try {
+                Fetcher.removeFromCart(hh, user, itemId);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    @GET
+    @Path("/checkout")
+    @Produces(MediaType.TEXT_HTML)
+    public String checkout(@Context HttpHeaders hh){
+        String toReturn = "";
 
         if(user != null){
-            Order order = OrderManager.createOrder(hh, user);
-            if(order != null){ toReturn = order; }
+            try {
+                List<Order> orders = Fetcher.checkout(hh, user);
+                if(orders != null){
+                    toReturn = FrontBuilder.buildOrders(orders);
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
 
         return toReturn;
     }
-
-    @POST
-    @Path("/{user}")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Order add(@PathParam("user") String user, @Context HttpHeaders hh){
-        Order toReturn = null;
-
-        if(user != null){
-            Order order = OrderManager.createOrder(hh, user);
-            if(order != null){ toReturn = order; }
-        }
-
-        return toReturn;
-    }*/
 }

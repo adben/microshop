@@ -6,7 +6,9 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import model.Cart;
 import model.Item;
+import model.Order;
 
+import javax.ws.rs.client.SyncInvoker;
 import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.MultivaluedMap;
 import java.io.IOException;
@@ -23,12 +25,6 @@ public class Fetcher {
 
     private static final Gson GSON = new Gson();
 
-    /**
-     * Call the microservice in charge of retrieving current datetime
-     * @param hh HTTP 200 is operation is successful else HTTP 500
-     * @return The current datetime in JSON format
-     * @throws IOException
-     */
     public static List<Item> getCatalog(HttpHeaders hh) throws IOException {
         List<Item> toReturn = new ArrayList<>();
 
@@ -50,74 +46,75 @@ public class Fetcher {
         return toReturn;
     }
 
-    /**
-     * Call the microservice in charge of retrieving current datetime
-     * @param hh HTTP 200 is operation is successful else HTTP 500
-     * @return The current datetime in JSON format
-     * @throws IOException
-     */
-    public static Cart listOrders(HttpHeaders hh, String user) throws IOException {
-        Cart toReturn = null;
-
-        Cart cart = prefetch(buildServiceUrl("cart", "1", "/rest/cart/" + user), HTTPMethod.GET, hh, Cart.class);
-        if (cart != null) { toReturn = cart;}
-
-        return toReturn;
-    }
-
-    /**
-     * Call the microservice in charge of retrieving current datetime
-     * @param hh HTTP 200 is operation is successful else HTTP 500
-     * @return The current datetime in JSON format
-     * @throws IOException
-     */
     public static Cart getCart(HttpHeaders hh, String user) throws IOException {
         Cart toReturn = null;
 
-        Cart cart = prefetch(buildServiceUrl("cart", "1", "/rest/cart/" + user), HTTPMethod.GET, hh, Cart.class);
+        Cart cart = prefetch(buildServiceUrl("cart", "1", "/rest/cart/items/" + user), HTTPMethod.GET, hh, Cart.class);
         if (cart != null) { toReturn = cart;}
 
         return toReturn;
     }
 
-
-    /**
-     * Call the microservice in charge of retrieving current datetime
-     * @param hh HTTP 200 is operation is successful else HTTP 500
-     * @return The current datetime in JSON format
-     * @throws IOException
-     */
-    public static Cart addToCart(HttpHeaders hh, String user, Long id) throws IOException {
+    public static Cart addToCart(HttpHeaders hh, String user, Long itemId) throws IOException {
         Cart toReturn = null;
 
-        Cart cart = prefetch(buildServiceUrl("cart", "1", "/rest/cart/" + user), HTTPMethod.GET, hh, Cart.class);
+        Cart cart = prefetch(buildServiceUrl("cart", "1", "/rest/cart/item/" + user + "/" + itemId), HTTPMethod.GET, hh, Cart.class);
         if (cart != null) { toReturn = cart;}
 
         return toReturn;
     }
 
-    /**
-     * Call the microservice in charge of retrieving current datetime
-     * @param hh HTTP 200 is operation is successful else HTTP 500
-     * @return The current datetime in JSON format
-     * @throws IOException
-     */
-    public static Cart removeFromCart(HttpHeaders hh, String user, Long id) throws IOException {
+    public static Cart removeFromCart(HttpHeaders hh, String user, Long itemId) throws IOException {
         Cart toReturn = null;
 
-        Cart cart = prefetch(buildServiceUrl("cart", "1", "/rest/cart/" + user), HTTPMethod.GET, hh, Cart.class);
+        Cart cart = prefetch(buildServiceUrl("cart", "1", "/rest/cart/item/delete/" + user + "/" + itemId), HTTPMethod.GET, hh, Cart.class);
         if (cart != null) { toReturn = cart;}
 
         return toReturn;
     }
 
+    public static List<Order> checkout(HttpHeaders hh, String user) throws IOException {
+        List<Order> toReturn = new ArrayList<>();
 
-    /**
-     * Call the microservice in charge of retrieving current datetime
-     * @param hh HTTP 200 is operation is successful else HTTP 500
-     * @return The current datetime in JSON format
-     * @throws IOException
-     */
+        String serviceUrl = buildServiceUrl("order", "1", "/rest/orders/checkout/" + user);
+
+        if(serviceUrl != null){
+
+            String json = fetch(serviceUrl, HTTPMethod.GET, hh);
+
+            if(json != null){
+                List<Order> orders = GSON.fromJson(json, new TypeToken<List<Order>>() {}.getType());
+
+                if(orders != null){
+                    toReturn.addAll(orders);
+                }
+            }
+        }
+
+        return toReturn;
+    }
+
+    public static List<Order> getOrders(HttpHeaders hh, String user) throws IOException {
+        List<Order> toReturn = new ArrayList<>();
+
+        String serviceUrl = buildServiceUrl("order", "1", "/rest/orders/" + user);
+
+        if(serviceUrl != null){
+
+            String json = fetch(serviceUrl, HTTPMethod.GET, hh);
+
+            if(json != null){
+                List<Order> orders = GSON.fromJson(json, new TypeToken<List<Order>>() {}.getType());
+
+                if(orders != null){
+                    toReturn.addAll(orders);
+                }
+            }
+        }
+
+        return toReturn;
+    }
+
     public static Cart clearCart(HttpHeaders hh, String user) throws IOException {
         Cart toReturn = null;
 
@@ -127,12 +124,6 @@ public class Fetcher {
         return toReturn;
     }
 
-    /**
-     * Call the microservice in charge of retrieving current datetime
-     * @param hh HTTP 200 is operation is successful else HTTP 500
-     * @return The current datetime in JSON format
-     * @throws IOException
-     */
     public static Cart checkout(HttpHeaders hh, String user, Long id) throws IOException {
         Cart toReturn = null;
 
@@ -142,14 +133,6 @@ public class Fetcher {
         return toReturn;
     }
 
-
-    /**
-     * Build the microservice URL to call based on given parameter
-     * @param service Name of the microservice to be called
-     * @param version Version of the microservice to be called
-     * @param endpoint Endpoint on the microservice to be called
-     * @return The url of the microservice associated with the given parameters
-     */
     private static String buildServiceUrl(String service, String version, String endpoint){
 
         String toReturn = null;
@@ -158,19 +141,13 @@ public class Fetcher {
 
         if (baseUrl != null && !baseUrl.isEmpty() && endpoint != null && !endpoint.isEmpty()) {
             toReturn = "http://" + baseUrl + endpoint;
+
+            System.out.println("Calling service:"  + toReturn);
         }
 
         return toReturn;
     }
 
-    /**
-     * Call the fecth service & return the associated values if required
-     * @param url Microservice URL to be called
-     * @param httpMethod Method HTTP to use in the given call
-     * @param hh The current request HTTP headers
-     * @return String result associated to the given context
-     * @throws IOException
-     */
     private static <T> T prefetch(String url, HTTPMethod httpMethod, HttpHeaders hh, Class<T> type) throws IOException {
         T toReturn = null;
 
@@ -185,14 +162,6 @@ public class Fetcher {
         return toReturn;
     }
 
-    /**
-     * Fetch the current url with the given method by injecting the given headers
-     * @param url Url to fetch
-     * @param method HTTP method to use
-     * @param hh The current request HTTP headers
-     * @return
-     * @throws IOException
-     */
     private static String fetch(String url, HTTPMethod method, HttpHeaders hh) throws IOException {
 
         String toReturn = null;

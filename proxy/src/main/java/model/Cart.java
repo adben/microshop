@@ -11,7 +11,7 @@ public class Cart {
     private Long id;
     private String user;
     private List<Item> items;
-    private Double total = 0.00;
+    private Integer total = 0;
 
     public Cart() {}
 
@@ -44,7 +44,7 @@ public class Cart {
         this.items = items;
     }
 
-    public Double getTotal() {
+    public Integer getTotal() {
         return total;
     }
 
@@ -69,7 +69,7 @@ public class Cart {
     public void clear(){
 
         this.items.clear();
-        this.total = 0.00;
+        this.total = 0;
 
     }
 }

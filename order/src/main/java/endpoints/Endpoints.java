@@ -33,15 +33,17 @@ public class Endpoints {
         return toReturn;
     }
 
-    @POST
-    @Path("/{user}")
+    @GET
+    @Path("/checkout/{user}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Order add(@PathParam("user") String user, @Context HttpHeaders hh){
-        Order toReturn = null;
+    public List<Order> add(@PathParam("user") String user, @Context HttpHeaders hh){
+        List<Order> toReturn = null;
 
         if(user != null){
             Order order = OrderManager.createOrder(hh, user);
-            if(order != null){ toReturn = order; }
+            if(order != null){
+                toReturn = OrderManager.list(user);
+            }
         }
 
         return toReturn;

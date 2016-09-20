@@ -9,7 +9,7 @@ import javax.ws.rs.core.HttpHeaders;
 import java.io.IOException;
 
 /**
- * Created by Apeser on 18.09.2016.
+ * Created by JB on 18.09.2016.
  */
 public class CartManager {
 

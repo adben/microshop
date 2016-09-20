@@ -19,4 +19,20 @@
         <url-pattern>/rest/*</url-pattern>
     </servlet-mapping>
 
+    <filter>
+        <filter-name>AuthenticationFilter</filter-name>
+        <filter-class>helper.AuthenticationFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>AuthenticationFilter</filter-name>
+        <url-pattern>/</url-pattern>
+        <url-pattern>/rest/task</url-pattern>
+        <url-pattern>/rest/tasks</url-pattern>
+        <url-pattern>/rest/task/*</url-pattern>
+    </filter-mapping>
+
+    <welcome-file-list>
+        <welcome-file>rest/home</welcome-file>
+    </welcome-file-list>
+
 </web-app>

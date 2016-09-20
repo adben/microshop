@@ -8,10 +8,11 @@ import model.Order;
 import javax.ws.rs.core.HttpHeaders;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
- * Created by Apeser on 18.09.2016.
+ * Created by JB on 18.09.2016.
  */
 public class OrderManager {
 
@@ -56,7 +57,7 @@ public class OrderManager {
         List<Order> toReturn = new ArrayList<>();
 
         if(user != null){
-            List<Order> orders = OrderManager.list(user);
+            List<Order> orders = OrderDao.get(user);
             if(orders != null){
                 toReturn.addAll(orders);
             }
@@ -70,8 +71,11 @@ public class OrderManager {
         Order toReturn = null;
 
         if(cart != null){
-            toReturn = new Order(cart);
-            toReturn.setStatus("Completed");
+            toReturn = new Order();
+            toReturn.setUser(cart.getUser());
+            toReturn.setDate(new Date().toString());
+            toReturn.setNbItems(cart.getItems().size());
+            toReturn.setTotal(cart.getTotal());
         }
 
         return toReturn;

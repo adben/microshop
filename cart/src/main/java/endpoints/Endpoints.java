@@ -19,9 +19,9 @@ public class Endpoints {
     String user = "ggg";
 
     @GET
-    @Path("/items")
+    @Path("/items/{user}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Cart list(@Context HttpHeaders hh){
+    public Cart list(@Context HttpHeaders hh, @PathParam("user") String user){
         Cart toReturn = null;
 
         Cart cart = CartDao.get(user);
@@ -45,28 +45,35 @@ public class Endpoints {
         return toReturn;
     }
 
-    @POST
-    @Path("/item/{id}")
+    @GET
+    @Path("/item/{user}/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Cart add(@PathParam("id") Long id, @Context HttpHeaders hh){
+    public Cart add(@Context HttpHeaders hh, @PathParam("id") Long id, @PathParam("user") String user){
         Cart toReturn = null;
 
         Cart cart = CartManager.addToCart(hh, user, id);
 
         if(cart != null){ toReturn = cart; }
 
+        System.out.println("Added to cart" + cart);
+
         return toReturn;
     }
 
-    @DELETE
-    @Path("/item/{id}")
+    @GET
+    @Path("/item/delete/{user}/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Cart remove(@PathParam("id") Long id, @Context HttpHeaders hh){
+    public Cart delete(@Context HttpHeaders hh, @PathParam("id") Long id, @PathParam("user") String user){
         Cart toReturn = null;
+
+        System.out.println("Called removed from cart");
 
         Cart cart = CartManager.removeFromCart(hh, user, id);
 
         if(cart != null){ toReturn = cart; }
+
+        System.out.println("Cart: " + cart);
+
 
         return toReturn;
     }

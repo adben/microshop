@@ -6,14 +6,12 @@ package model;
 public class Order {
 
     private Long id;
-    private Cart cart;
-    private String status;
+    private String user;
+    private String date;
+    private Integer nbItems;
+    private Integer total;
 
     public Order() {}
-
-    public Order(Cart cart) {
-        this.cart = cart;
-    }
 
     public Long getId() {
         return id;
@@ -23,19 +21,35 @@ public class Order {
         this.id = id;
     }
 
-    public Cart getCart() {
-        return cart;
+    public String getUser() {
+        return user;
     }
 
-    public void setCart(Cart cart) {
-        this.cart = cart;
+    public void setUser(String user) {
+        this.user = user;
     }
 
-    public String getStatus() {
-        return status;
+    public String getDate() {
+        return date;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public Integer getNbItems() {
+        return nbItems;
+    }
+
+    public void setNbItems(Integer nbItems) {
+        this.nbItems = nbItems;
+    }
+
+    public Integer getTotal() {
+        return total;
+    }
+
+    public void setTotal(Integer total) {
+        this.total = total;
     }
 }
